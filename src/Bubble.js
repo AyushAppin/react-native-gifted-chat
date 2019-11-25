@@ -144,20 +144,31 @@ export default class Bubble extends React.Component {
     return null;
   }
 
-  renderUsername() {
-    const { currentMessage } = this.props;
-    if (this.props.renderUsernameOnMessage) {
-      if (currentMessage.user._id === this.props.user._id) {
-        return null;
-      }
-      return (
-        <View style={styles.usernameView}>
-          <Text style={[styles.username, this.props.usernameStyle]}>~ {currentMessage.user.name}</Text>
-        </View>
-      );
-    }
-    return null;
-  }
+  renderUsername() {
+        const { currentMessage, user, previousMessage } = this.props
+        if (
+          this.props.renderUsernameOnMessage &&
+          currentMessage &&
+          previousMessage
+        ) {
+          if (
+            (user && currentMessage.user._id === user._id,
+            previousMessage.user._id === currentMessage.user._id ||
+              currentMessage.user._id === user._id)
+          ) {
+            return null
+          }
+          return (
+            <View style={styles.content.usernameView}>
+              <Text style={[styles.content.username, this.props.usernameStyle]}>
+                {currentMessage.user.name}
+              </Text>
+            </View>
+          )
+        }
+        return null
+      }
+    
 
   renderCustomView() {
     if (this.props.renderCustomView) {
