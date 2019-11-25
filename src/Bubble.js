@@ -7,6 +7,7 @@ import { Text, Clipboard, StyleSheet, TouchableWithoutFeedback, View, ViewPropTy
 import MessageText from './MessageText';
 import MessageImage from './MessageImage';
 import MessageVideo from './MessageVideo';
+import MessageDocument from './MessageDocument';
 
 import Time from './Time';
 import Color from './Color';
