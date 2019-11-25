@@ -89,6 +89,17 @@ export default class Bubble extends React.Component {
     }
     return null;
   }
+  
+  renderMessageDocument() {
+    if (this.props.currentMessage && this.props.currentMessage.document) {
+        const { containerStyle, wrapperStyle, ...messageDocumentProps } = this.props;
+        if (this.props.renderMessageDocument) {
+            return this.props.renderMessageDocument(messageDocumentProps);
+        }
+        return <MessageDocument {...messageDocumentProps}/>;
+    }
+    return null;
+}
 
   renderMessageVideo() {
     if (this.props.currentMessage.video) {
@@ -172,6 +183,7 @@ export default class Bubble extends React.Component {
           >
             <View>
               {this.renderCustomView()}
+              {this.renderMessageDocument()}
               {this.renderMessageImage()}
               {this.renderMessageVideo()}
               {this.renderMessageText()}
