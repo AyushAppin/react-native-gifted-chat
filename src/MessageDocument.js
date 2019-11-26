@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import {Images, Colors} from '../../../src/constants';
+import FontStyle from '../../../src/styles/FontStyle';
 import {
   Image,
   StyleSheet,
@@ -9,13 +11,13 @@ import {
   Text,
   Linking,
 } from 'react-native'
-import { images } from '../../../src/config'
+import CommonFunctions from '../../../src/utils/CommonFunctions'
 // @ts-ignore
 const styles = StyleSheet.create({
   container: {},
   image: {
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
     margin: 3,
     resizeMode: 'cover',
   },
@@ -32,41 +34,38 @@ export default class MessageDocument extends Component {
       documentStyle,
       currentMessage,
     } = this.props
-    const { document, docx, htm, html, pdf, ppt, pptx, txt, xls, xlsx } = images
     let isServerDocs ;
     documentImage = value => {
       const fileName = value && value.name ? value.name : value
       const fileExtension = fileName.substr(fileName.lastIndexOf('.') + 1)
       switch (fileExtension) {
         case 'doc':
-          return document
+          return Images.doc
           break
         case 'docx':
-          return docx
-          break
-        case 'htm':
-          return htm
-          break
-        case 'html':
-          return html
+          return Images.doc
           break
         case 'pdf':
-          return pdf
+          return Images.pdf
           break
         case 'ppt':
-          return ppt
+          return Images.ppt
           break
         case 'pptx':
-          return pptx
+          return Images.ppt
+          break
         case 'txt':
-          return txt
+          return Images.txt
           break
         case 'xls':
-          return xls
+          return Images.xls
           break
         case 'xlsx':
-          return xlsx
+          return Images.xls
           break
+        case 'rtf':
+            return Images.rtf
+            break
         default:
           return null
       }
@@ -80,9 +79,7 @@ let isServerDocs = currentMessage.document && currentMessage.document.name ?  fa
           >
             <View
               style={{
-                flexDirection: 'row',
                 width: 200,
-                height: 25,
                 margin: 5,
                 alignItems: 'center',
               }}
@@ -92,8 +89,8 @@ let isServerDocs = currentMessage.document && currentMessage.document.name ?  fa
                 style={[styles.image, documentStyle]}
                 source={documentImage(currentMessage.document)}
               />
-              <Text numberOfLines={1} style={{ width : 130}}>
-                { currentMessage.document &&  currentMessage.document.name ? currentMessage.document.name : currentMessage.document}
+              <Text style={[FontStyle.monoropeBold_12, {color:Colors.white, marginTop:5}]} numberOfLines={2} >
+                { currentMessage.document &&  currentMessage.document.name ? currentMessage.document.name : CommonFunctions.getFileNameFromUrl(currentMessage.document)}
               </Text>
             </View>
           </TouchableOpacity>
