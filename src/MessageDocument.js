@@ -33,8 +33,10 @@ export default class MessageDocument extends Component {
       documentProps,
       documentStyle,
       currentMessage,
+      position
     } = this.props
-    let isServerDocs ;
+    console.log('MessageProps: ', this.props)
+    const isRight = position === 'right' ;
     documentImage = value => {
       const fileName = value && value.name ? value.name : value
       const fileExtension = fileName.substr(fileName.lastIndexOf('.') + 1)
@@ -71,7 +73,7 @@ export default class MessageDocument extends Component {
       }
     }
     if (!!currentMessage) {
-let isServerDocs = currentMessage.document && currentMessage.document.name ?  false : true 
+// let isServerDocs = currentMessage.document && currentMessage.document.name ?  false : true 
       return (
         <View style={[styles.container, containerStyle]}>
           <TouchableOpacity
@@ -89,7 +91,7 @@ let isServerDocs = currentMessage.document && currentMessage.document.name ?  fa
                 style={[styles.image, documentStyle]}
                 source={documentImage(currentMessage.document)}
               />
-              <Text style={[FontStyle.monoropeBold_12, {color:Colors.white, marginTop:5}]} numberOfLines={2} >
+              <Text style={[FontStyle.monoropeBold_12, !isRight ? {color:Colors.darkBlueGrey, marginTop:5} : {color:Colors.white, marginTop:5}]} numberOfLines={2} >
                 { currentMessage.document &&  currentMessage.document.name ? currentMessage.document.name : CommonFunctions.getFileNameFromUrl(currentMessage.document)}
               </Text>
             </View>
