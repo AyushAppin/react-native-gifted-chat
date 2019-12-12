@@ -149,7 +149,7 @@ export default class Bubble extends React.Component {
         if (
           this.props.renderUsernameOnMessage &&
           currentMessage &&
-          previousMessage && currentMessage.user._id && previousMessage.user
+          previousMessage && Object.keys(previousMessage).length
         ) {
           if (
             (user && currentMessage.user._id === user._id,
@@ -159,7 +159,11 @@ export default class Bubble extends React.Component {
             return null
           }
           return (
-            <View style={styles.usernameView}><Text style={[styles.username, this.props.usernameStyle]}>{currentMessage.user.name}</Text></View>
+            <View style={styles.content.usernameView}>
+              <Text style={[styles.content.username, this.props.usernameStyle]}>
+                {currentMessage.user.name}
+              </Text>
+            </View>
           )
         }
         return null
@@ -190,15 +194,13 @@ export default class Bubble extends React.Component {
             {...this.props.touchableProps}
           >
             <View>
-            {this.renderUsername()}
-
               {this.renderCustomView()}
               {this.renderMessageDocument()}
               {this.renderMessageImage()}
               {this.renderMessageVideo()}
-              
               {this.renderMessageText()}
               <View style={[styles[this.props.position].bottom, this.props.bottomContainerStyle[this.props.position]]}>
+                {this.renderUsername()}
                 {this.renderTime()}
                 {this.renderTicks()}
               </View>
@@ -277,7 +279,6 @@ const styles = {
   usernameView: {
     flexDirection: 'row',
     marginHorizontal: 10,
-    marginTop:10
   },
 };
 
