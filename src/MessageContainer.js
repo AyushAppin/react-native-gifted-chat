@@ -15,6 +15,9 @@ import { FlatList, View, StyleSheet, Keyboard, TouchableOpacity, Text } from 're
 import LoadEarlier from './LoadEarlier';
 import Message from './Message';
 import Color from './Color';
+import EmptyPlaceholer from '../../../src/components/EmptyPlaceholder'
+import { Images } from '../../../src/constants';
+import i18n from '../../../src/translations';
 
 export default class MessageContainer extends React.PureComponent {
 
@@ -66,6 +69,7 @@ export default class MessageContainer extends React.PureComponent {
     return null;
   };
 
+  
   renderLoadEarlier = () => {
     if (this.props.loadEarlier === true) {
       const loadEarlierProps = {
@@ -151,7 +155,11 @@ export default class MessageContainer extends React.PureComponent {
 
   render() {
     if (this.props.messages.length === 0) {
-      return <View style={styles.container} />;
+      return <EmptyPlaceholer
+      image={Images.noMessagePlaceholder}
+      title={i18n.t('no_messages')}
+      subTitle={i18n.t('no_messages_subTitle')}
+    />
     }
     return (
       <View style={this.props.alignTop ? styles.containerAlignTop : styles.container}>
